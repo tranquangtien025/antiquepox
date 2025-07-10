@@ -16,6 +16,8 @@ userRouter.post(
   expressAsyncHandler(async (req, res) => {
     // Finding a user by email in the database
     const user = await User.findOne({ email: req.body.email });
+    console.log(user);
+
 
     // Checking if the user exists
     if (user) {

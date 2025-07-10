@@ -1,10 +1,16 @@
+// Importing necessary dependencies from external libraries
 import axios from 'axios';
-import { useEffect, useReducer } from 'react';
-import { useParams } from 'react-router-dom';
+import { useEffect, useReducer, useContext } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Row, Col, Card, ListGroup, Badge, Button } from 'react-bootstrap';
 import Rating from '../components/Rating';
 import { Helmet } from 'react-helmet-async';
+import LoadingBox from '../components/LoadingBox';
+import MessageBox from '../components/MessageBox';
+import { getError } from '../utils';
+import { Store } from '../Store';
 
+// Reducer function to handle state changes based on different actions
 const reducer = (state, action) => {
   switch (action.type) {
     case 'FETCH_REQUEST':
@@ -18,58 +24,84 @@ const reducer = (state, action) => {
   }
 };
 
-// Main functional component for displaying product details
-export default function ProductMag() {
-  // Extracting slug from URL params
+// Functional component for displaying product details
+export default function Product() {
+  // Initializing necessary hooks and variables
+  const navigate = useNavigate();
   const params = useParams();
   const { slug } = params;
 
-  // Initializing state using useReducer hook
+  // State and dispatch for handling product data, loading, and errors
   const [{ loading, error, product }, dispatch] = useReducer(reducer, {
     product: [],
     loading: true,
     error: '',
   });
 
-  // Fetching product data from API using useEffect hook
+  // Effect hook to fetch product data based on the slug parameter
   useEffect(() => {
     const fetchData = async () => {
       dispatch({ type: 'FETCH_REQUEST' });
       try {
         const baseUrl = process.env.REACT_APP_API_BASE_URL;
-        // Making API call to retrieve product details based on slug
         const result = await axios.get(`${baseUrl}/api/products/slug/${slug}`);
         dispatch({ type: 'FETCH_SUCCESS', payload: result.data });
       } catch (err) {
-        // Handling error if API call fails
-        dispatch({ type: 'FETCH_FAIL', payload: err.message });
+        dispatch({ type: 'FETCH_FAIL', payload: getError(err) });
       }
     };
-
-    // Calling fetchData function on component mount with dependency on slug
     fetchData();
   }, [slug]);
 
-  // Rendering content based on loading and error states
+  // Context hook to access global state and dispatch function
+  const { state, dispatch: ctxDispatch } = useContext(Store);
+  const { cart } = state;
+
+  // Handler function to add the product to the cart
+  const addToCartHandler = async () => {
+    const existItem = cart.cartItems.find((x) => x._id === product._id);
+    const quantity = existItem ? existItem.quantity + 1 : 1;
+    const baseUrl = process.env.REACT_APP_API_BASE_URL;
+    const { data } = await axios.get(`${baseUrl}/api/products/${product._id}`);
+    if (data.countInStock < quantity) {
+      window.alert('Sorry. Product is out of stock');
+      return;
+    }
+    ctxDispatch({
+      type: 'CART_ADD_ITEM',
+      payload: { ...product, quantity },
+    });
+    navigate('/cart');
+  };
+
+  // Rendering different components based on loading and error states
   return loading ? (
-    <div>Loading...</div>
+    <LoadingBox />
   ) : error ? (
-    <div>{error}</div>
+    <MessageBox variant='danger'>{error}</MessageBox>
   ) : (
-    // Displaying product details if data is successfully fetched
     <div className='content'>
       <br />
       <div className='box'>
         <Row>
+          {/* Introduction paragraph */}
           <p className='mt-3'>
-            ~ All of the products are hand picked over many years. ~
+            ~ Explore a meticulously curated collection where each item has been
+            thoughtfully chosen over the years. Our exclusive range features
+            unique and timeless pieces that beautifully capture the essence of
+            history. Driven by our unwavering passion for antiques, we embark on
+            a continuous quest for treasures, each with its own captivating
+            story. Every item is lovingly handpicked, ensuring not only
+            exceptional quality but also enduring value. Immerse yourself in a
+            world of carefully selected artifacts that stand as a testament to
+            our commitment to bringing you the very best in every piece. ~
           </p>
         </Row>
       </div>
       <br />
       <Row>
-        {/* Displaying product image */}
         <Col md={6}>
+          {/* Displaying product image */}
           <img
             className='img-large'
             src={product.image}
@@ -77,7 +109,7 @@ export default function ProductMag() {
           ></img>
         </Col>
         <Col md={6}>
-          {/* Displaying product details using ListGroup */}
+          {/* Product details list */}
           <ListGroup variant='flush'>
             <ListGroup.Item>
               {/* Setting the title of the page dynamically */}
@@ -88,7 +120,7 @@ export default function ProductMag() {
               <h1>{product.name}</h1>
             </ListGroup.Item>
             <ListGroup.Item>
-              {/* Displaying product rating using Rating component */}
+              {/* Displaying product rating using the Rating component */}
               <Rating
                 rating={product.rating}
                 numReviews={product.numReviews}
@@ -106,37 +138,38 @@ export default function ProductMag() {
 
           <br />
 
-          {/* Displaying additional product details in a Card */}
+          {/* Card for additional product details */}
           <Card>
             <Card.Body>
+              {/* List of details such as price, status, and add to cart button */}
               <ListGroup variant='flush'>
                 <ListGroup.Item>
-                  {/* Displaying product price */}
                   <Row>
                     <Col>Price:</Col>
                     <Col>${product.price}</Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
-                  {/* Displaying product availability status */}
                   <Row>
                     <Col>Status:</Col>
                     <Col>
+                      {/* Displaying product availability status */}
                       {product.countInStock > 0 ? (
                         <Badge bg='success'>In Stock</Badge>
                       ) : (
-                        //  turnery operator, condition ? expression_if_true : expression_if_false;
                         <Badge bg='danger'>Unavailable</Badge>
                       )}
                     </Col>
                   </Row>
                 </ListGroup.Item>
 
-                {/* Displaying 'Add to Cart' button if product is in stock */}
+                {/* Add to cart button, displayed only if product is in stock */}
                 {product.countInStock > 0 && (
                   <ListGroup.Item>
                     <div className='d-grid'>
-                      <Button variant='primary'>Add to Cart</Button>
+                      <Button onClick={addToCartHandler} variant='primary'>
+                        Add to Cart
+                      </Button>
                     </div>
                   </ListGroup.Item>
                 )}

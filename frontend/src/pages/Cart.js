@@ -21,7 +21,8 @@ export default function Cart() {
     // Async function to update the quantity of items in the cart
     const updateCartHandler = async (item, quantity) => {
         // Fetching additional data about the item from the server
-        const { data } = await axios.get(`/api/products/${item._id}`);
+        const baseUrl = process.env.REACT_APP_API_BASE_URL;
+        const { data } = await axios.get(`${baseUrl}/api/products/${item._id}`);
         // Checking if the item is in stock
         if (data.countInStock < quantity) {
             window.alert('Sorry. Product is out of stock');

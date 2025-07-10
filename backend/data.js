@@ -24,7 +24,7 @@ const data = {
       category: 'Asian',
       image: '/images/1a.jpg',
       price: 50,
-      countInStock: 1,
+      countInStock: 5,
       from: 'China',
       finish: 'Bone & Metal',
       rating: 5,
