@@ -233,3 +233,50 @@ Store.js > added
 .gitignore > updated with .env (line 4) so we don't push our .env to github
 
 git 5th commit
+
+# Sixth Commit-Checkout (Lesson 6)
+
+BACKEND
+folder: routes
+userRoutes.js > updated
+
+FRONTEND
+folder: components
+CheckoutSteps.js > added
+Header.js > added about us dropdown, re-arranged cart, SignoutHandler
+ProductCard.js > added toast notification with image
+
+folder: pages
+PaymentMethod.js > added
+ShippingAddress.js added  
+Signup.js > added
+
+Store.js > updated to SAVE_SHIPPING_ADDRESS
+
+App.js > updated added 3 pages, ToastContainer
+
+Git 6th commit
+
+# Seventh Commit-OrderHistory (Lesson 7)
+
+BACKEND
+folder: models
+orderModel.js > added
+
+folder: routes
+orderRoutes.js > added
+userRoutes.js > updated with profile
+
+server.js > updated with api/orders
+utils.js > updated with isAuth
+
+FRONTEND
+folder: pages
+Profile.js > added,
+PlaceOrder.js > added,
+OrderDetails.js > added,
+OrderHistory.js > added,
+
+App.js > updated added 4 pages
+
+Git 7th commit

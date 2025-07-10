@@ -17,8 +17,8 @@ export default function Signin() {
     const redirectInUrl = new URLSearchParams(search).get('redirect');
     const redirect = redirectInUrl ? redirectInUrl : '/';
 
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [email, setEmail] = useState('tien@gmail.com');
+    const [password, setPassword] = useState('Tien1234');
 
     // Accessing global state using useContext
     const { state, dispatch: ctxDispatch } = useContext(Store);
@@ -31,10 +31,13 @@ export default function Signin() {
         try {
             // Making a POST request to the signin API endpoint with email and password
             // The response is the data: email, password useState
-            const { data } = await Axios.post('/api/users/signin', {
+            const baseUrl = process.env.REACT_APP_API_BASE_URL;
+            const { data } = await Axios.post(`${baseUrl}/api/users/signin`, {
                 email,
                 password,
             });
+            console.log(data);
+
 
             // Dispatching the USER_SIGNIN action and storing user info in local storage
             ctxDispatch({ type: 'USER_SIGNIN', payload: data });
@@ -72,6 +75,7 @@ export default function Signin() {
                             <Form.Label>Email</Form.Label>
                             <Form.Control
                                 type='email'
+                                value={email}
                                 required
                                 onChange={(e) => setEmail(e.target.value)}
                             />
@@ -81,6 +85,7 @@ export default function Signin() {
                             <Form.Label>Password</Form.Label>
                             <Form.Control
                                 type='password'
+                                value={password}
                                 required
                                 onChange={(e) => setPassword(e.target.value)}
                             />
