@@ -5,6 +5,7 @@ import Rating from './Rating';
 import axios from 'axios';
 import { useContext } from 'react';
 import { Store } from '../Store';
+import { toast } from 'react-toastify';
 
 function ProductCard(props) {
   // Destructuring props to get the 'product' object
@@ -43,6 +44,22 @@ function ProductCard(props) {
       type: 'CART_ADD_ITEM',
       payload: { ...item, quantity },
     });
+    // toast notification
+    toast.success(
+      <div>
+        <img
+          src={product.image}
+          alt={product.name}
+          style={{ width: '50px', height: '50px', marginRight: '10px' }}
+          loading='lazy'
+        />
+        <span>{product.name} added to cart</span>
+      </div>,
+      {
+        position: 'top-center mt-3',
+        autoClose: 2000, // Duration in milliseconds (2 second)
+      }
+    );
   };
 
   return (

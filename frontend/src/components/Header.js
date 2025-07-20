@@ -23,7 +23,7 @@ const Header = () => {
       <Navbar className='header' variant='dark' expand='lg'>
         <LinkContainer to='/'>
           <Navbar.Brand>
-            <img src='./images/logo.png' className='logo' alt='logo'></img>
+            <img src='./images/logo2.png' className='logo' alt='logo'></img>
             {/* <i className='fas fa-store'></i> Oldneit */}
           </Navbar.Brand>
         </LinkContainer>
@@ -31,22 +31,12 @@ const Header = () => {
         <Navbar.Collapse id='basic-navbar-nav'>
           {/* Navigation links aligned to the right */}
           <Nav className='mr-auto  w-100  justify-content-end'>
-            <LinkContainer to='/about'>
-              <Nav.Link>
-                <i className='fas fa-info'></i> About Us
-              </Nav.Link>
-            </LinkContainer>
+            <NavDropdown title='About Us' id='basic-nav-dropdown'>
+              <NavDropdown.Item href='/about'>About Us</NavDropdown.Item>
+              <NavDropdown.Item href='/contact'>Contact Us</NavDropdown.Item>
+              <NavDropdown.Item href='/design'>Design</NavDropdown.Item>
+            </NavDropdown>
 
-            {/* Link to Cart page with a badge showing item count */}
-            <Link to='/cart' className='nav-link'>
-              <i className='fa fa-shopping-cart'></i> Cart
-              {cart.cartItems.length > 0 && (
-                <Badge pill bg='danger'>
-                  {/* Dynamically update the cart item count */}
-                  {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
-                </Badge>
-              )}
-            </Link>
             {/* Conditional rendering based on userInfo */}
             {userInfo ? (
               // If userInfo is available
@@ -75,6 +65,16 @@ const Header = () => {
                 <i class='fas fa-sign-in-alt'></i> Sign In
               </Link>
             )}
+            {/* Link to Cart page with a badge showing item count */}
+            <Link to='/cart' className='nav-link'>
+              <i className='fa fa-shopping-cart'></i> Cart
+              {cart.cartItems.length > 0 && (
+                <Badge pill bg='danger'>
+                  {/* Dynamically update the cart item count */}
+                  {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
+                </Badge>
+              )}
+            </Link>
           </Nav>
         </Navbar.Collapse>
       </Navbar>

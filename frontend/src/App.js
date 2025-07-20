@@ -9,12 +9,18 @@ import BottomFooter from './components/BottomFooter';
 import Footer from './components/Footer';
 import Signin from './pages/Signin';
 import Cart from './pages/Cart';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import PaymentMethod from './pages/PaymentMethod';
+import ShippingAddress from './pages/ShippingAddress';
+import Signup from './pages/Signup';
 
 function App() {
   return (
     <BrowserRouter>
       <Header />
       <BottomHeader />
+      <ToastContainer />
       <main className='mt-0'>
         <Routes>
           <Route path='/' element={<Home />} />
@@ -23,6 +29,9 @@ function App() {
           <Route path='/about' element={<AboutUs />} />
           <Route path='/gallery' element={<Gallery />} />
           <Route path='/signin' element={<Signin />} />
+          <Route path='/payment' element={<PaymentMethod />} />
+          <Route path='/shipping' element={<ShippingAddress />} />
+          <Route path='/signup' element={<Signup />} />
         </Routes>
       </main>
       <Footer />
