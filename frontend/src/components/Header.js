@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { Navbar, Nav, NavDropdown, Badge } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Store } from '../Store';
 
 // Functional component for the site header
@@ -10,12 +10,16 @@ const Header = () => {
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { cart, userInfo } = state;
 
+  const navigate = useNavigate();
+
   // Handler for user signout
-  const signoutHandler = () => {
+  const signoutHandler = (e) => {
+    e.preventDefault();
     // Dispatching an action to sign out the user
     ctxDispatch({ type: 'USER_SIGNOUT' });
     // Removing user information from local storage
     localStorage.removeItem('userInfo');
+    navigate('/');
   };
 
   return (
@@ -23,7 +27,7 @@ const Header = () => {
       <Navbar className='header' variant='dark' expand='lg'>
         <LinkContainer to='/'>
           <Navbar.Brand>
-            <img src='./images/logo2.png' className='logo' alt='logo'></img>
+            <img src='/images/logo2.png' className='logo' alt='logo'></img>
             {/* <i className='fas fa-store'></i> Oldneit */}
           </Navbar.Brand>
         </LinkContainer>

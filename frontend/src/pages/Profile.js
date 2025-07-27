@@ -26,8 +26,8 @@ const Profile = () => {
   const { userInfo } = state;
 
   // Local state for form inputs and loading state
-  const [name, setName] = useState('userInfo.name');
-  const [email, setEmail] = useState('userInfo.email');
+  const [name, setName] = useState(userInfo.name);
+  const [email, setEmail] = useState(userInfo.email);
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
@@ -39,6 +39,17 @@ const Profile = () => {
   // Function to handle form submission
   const submitHandler = async (e) => {
     e.preventDefault();
+
+    if (!password) {
+      toast.error('Password must be not empty');
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      toast.error('Password and confirm password do not match');
+      return;
+    }
+
     try {
       dispatch({ type: 'UPDATE_REQUEST' });
 

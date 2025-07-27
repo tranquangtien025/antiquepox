@@ -9,6 +9,8 @@ import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
 import { getError } from '../utils';
 import { Store } from '../Store';
+import InnerImageZoom from 'react-inner-image-zoom';
+import 'react-inner-image-zoom/lib/InnerImageZoom/styles.css';
 
 // Reducer function to handle state changes based on different actions
 const reducer = (state, action) => {
@@ -102,11 +104,14 @@ export default function Product() {
       <Row>
         <Col md={6}>
           {/* Displaying product image */}
-          <img
-            className='img-large'
+          <InnerImageZoom
             src={product.image}
+            zoomSrc={product.image} // Can be replaced with higher resolution images
+            zoomType="hover" // or "click"
+            zoomPreload={true}
             alt={product.name}
-          ></img>
+            className="img-large"
+          />
         </Col>
         <Col md={6}>
           {/* Product details list */}

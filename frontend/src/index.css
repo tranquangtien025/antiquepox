@@ -11,6 +11,7 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -58,6 +59,7 @@ body {
   min-width: 14rem;
   padding: 1rem;
 }
+
 .card-img-top:hover {
   border-radius: 0% !important;
   text-decoration: none;
@@ -77,11 +79,12 @@ main {
   color: var(--primary);
 }
 
-.checkout-steps > div {
+.checkout-steps>div {
   border-bottom: 0.2rem solid #a0a0a0;
   color: #a0a0a0;
 }
-.checkout-steps > div.active {
+
+.checkout-steps>div.active {
   border-bottom: 0.2rem solid var(--youtube);
   color: #353b40;
 }
@@ -93,16 +96,20 @@ main {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
 }
+
 .img-large {
   width: 500px;
   object-fit: contain;
-  position: relative; /* brings main image forward */
+  position: relative;
+  /* brings main image forward */
   z-index: 2;
 }
+
 .img-thumbnail {
   height: 80px;
   width: 80px;
 }
+
 .thumbnail {
   display: flex;
   flex-direction: row;
@@ -110,6 +117,7 @@ main {
   height: 120px;
   row-gap: 20px;
 }
+
 .thumbnail:hover {
   border-radius: 0% !important;
   text-decoration: none;
@@ -122,6 +130,7 @@ main {
   display: block;
   position: relative;
 }
+
 .dropdown-content {
   position: absolute;
   display: none;
@@ -134,6 +143,7 @@ main {
   margin-top: 0.4rem;
   border-radius: 0.5rem;
 }
+
 .dropdown:hover .dropdown-content {
   display: block;
 }
@@ -152,6 +162,7 @@ footer {
   color: #ffffff;
   text-align: center;
 }
+
 .bottom-footer {
   text-decoration: none;
   width: 100%;
@@ -166,21 +177,26 @@ footer {
 a.socialIcon {
   margin: 0 1rem;
 }
+
 .socialIcon a:hover {
   color: var(--primary);
 }
+
 .socialIcon {
   margin: 0 1rem;
   transition: transform 250ms;
 }
+
 a.facebookIcon {
   color: var(--dark);
   text-decoration: none !important;
 }
+
 a.youtubeIcon {
   color: var(--dark);
   text-decoration: none !important;
 }
+
 a.email {
   color: var(--dark);
   text-decoration: none !important;
@@ -199,6 +215,7 @@ a.email {
   padding-left: 5%;
   padding-right: 5%;
 }
+
 .bottom-header {
   text-decoration: none;
   width: 100%;
@@ -258,14 +275,17 @@ a.email {
   flex-wrap: wrap;
   justify-content: center;
 }
+
 .product {
   border: 1px #353b40 solid;
   margin: 1rem;
 }
+
 .product img {
   width: 100%;
   max-width: 400px;
 }
+
 .product-info {
   padding: 1rem;
 }
@@ -274,10 +294,12 @@ a.email {
   border: 1px #404040 solid;
   margin: 1rem;
 }
+
 .product img {
   width: 100%;
   max-width: 400px;
 }
+
 .product-info {
   padding: 1rem;
 }
@@ -297,6 +319,7 @@ a.email {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
 .pagination a.active {
   font-weight: bold;
 }
@@ -308,6 +331,7 @@ a.email {
 .img-large {
   max-width: 100%;
 }
+
 .img-thumbnail {
   height: 80px;
 }
@@ -320,6 +344,7 @@ a.email {
 .navbar-brand {
   font-weight: bold;
 }
+
 .side-navbar {
   width: 240px;
   height: 100%;
@@ -332,12 +357,15 @@ a.email {
 .site-container {
   transition: 0.4s;
 }
+
 .active-cont {
   margin-left: 240px;
 }
+
 .active-nav {
   left: 0;
 }
+
 .text-bold {
   font-weight: bold;
 }
@@ -354,10 +382,12 @@ a.email {
   height: 100vh;
   max-width: initial;
 }
+
 .full-box header,
 .full-box footer {
   display: none;
 }
+
 .full-box .container {
   height: 100vh;
   max-width: initial;
@@ -379,14 +409,17 @@ a.email {
   height: 3rem;
   display: flex;
 }
+
 .map-input-box input {
   border-radius: 1rem 0 0 1rem;
   border-right: 0;
 }
+
 .map-input-box button {
   border-radius: 0 1rem 1rem 0;
   border-left: 0;
 }
+
 button.thumbnail {
   padding: 0;
 }
@@ -436,10 +469,12 @@ button.thumbnail {
     max-width: 28rem;
     max-height: 300px;
   }
+
   .card-title {
     font-size: 10px;
     max-height: 230px;
   }
+
   .card-img-top {
     overflow: hidden;
     min-height: 200px;
@@ -447,6 +482,7 @@ button.thumbnail {
     min-width: 110px;
     max-width: 120px;
   }
+
   .card-body {
     max-height: 220px;
   }
